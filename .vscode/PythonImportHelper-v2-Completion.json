@@ -1,0 +1,73 @@
+[
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "psycopg2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "psycopg2",
+        "description": "psycopg2",
+        "detail": "psycopg2",
+        "documentation": {}
+    },
+    {
+        "label": "execute_values",
+        "importPath": "psycopg2.extras",
+        "description": "psycopg2.extras",
+        "isExtraImport": true,
+        "detail": "psycopg2.extras",
+        "documentation": {}
+    },
+    {
+        "label": "nan_to_none",
+        "kind": 2,
+        "importPath": "scripts.importData",
+        "description": "scripts.importData",
+        "peekOfCode": "def nan_to_none(value):\n    \"\"\"Converte NaN/NaT do pandas para None (NULL no postgres).\"\"\"\n    if pd.isna(value):\n        return None\n    return value\ndef time_to_float(value):\n    \"\"\"\n    Converte valor de tempo (datetime.time ou string HH:MM:SS) para\n    fração decimal do dia, que é o formato original do Excel.\n    Ex: 15:00:00 -> 0.625",
+        "detail": "scripts.importData",
+        "documentation": {}
+    },
+    {
+        "label": "time_to_float",
+        "kind": 2,
+        "importPath": "scripts.importData",
+        "description": "scripts.importData",
+        "peekOfCode": "def time_to_float(value):\n    \"\"\"\n    Converte valor de tempo (datetime.time ou string HH:MM:SS) para\n    fração decimal do dia, que é o formato original do Excel.\n    Ex: 15:00:00 -> 0.625\n    \"\"\"\n    if pd.isna(value):\n        return None\n    if hasattr(value, 'hour'):\n        return (value.hour * 3600 + value.minute * 60 + value.second) / 86400",
+        "detail": "scripts.importData",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "scripts.importData",
+        "description": "scripts.importData",
+        "peekOfCode": "def main():\n    print(\"Lendo Players.xlsx...\")\n    df = pd.read_excel(XLSX_PATH)\n    # O pandas interpreta essas colunas como time — converte de volta para float\n    for col in [\"Start Time (s)\", \"End Time (s)\"]:\n        df[col] = df[col].apply(time_to_float)\n    print(f\"  {len(df)} linhas carregadas.\")\n    conn = psycopg2.connect(DATABASE_URL)\n    conn.autocommit = False\n    cur = conn.cursor()",
+        "detail": "scripts.importData",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASE_URL",
+        "kind": 5,
+        "importPath": "scripts.importData",
+        "description": "scripts.importData",
+        "peekOfCode": "DATABASE_URL = \"postgresql://postgres:root@localhost:3003/example\"\nXLSX_PATH = \"./data/players.xlsx\"\ndef nan_to_none(value):\n    \"\"\"Converte NaN/NaT do pandas para None (NULL no postgres).\"\"\"\n    if pd.isna(value):\n        return None\n    return value\ndef time_to_float(value):\n    \"\"\"\n    Converte valor de tempo (datetime.time ou string HH:MM:SS) para",
+        "detail": "scripts.importData",
+        "documentation": {}
+    },
+    {
+        "label": "XLSX_PATH",
+        "kind": 5,
+        "importPath": "scripts.importData",
+        "description": "scripts.importData",
+        "peekOfCode": "XLSX_PATH = \"./data/players.xlsx\"\ndef nan_to_none(value):\n    \"\"\"Converte NaN/NaT do pandas para None (NULL no postgres).\"\"\"\n    if pd.isna(value):\n        return None\n    return value\ndef time_to_float(value):\n    \"\"\"\n    Converte valor de tempo (datetime.time ou string HH:MM:SS) para\n    fração decimal do dia, que é o formato original do Excel.",
+        "detail": "scripts.importData",
+        "documentation": {}
+    }
+]

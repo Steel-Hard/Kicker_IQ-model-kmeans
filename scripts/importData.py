@@ -2,7 +2,7 @@ import pandas as pd
 import psycopg2
 from psycopg2.extras import execute_values
 
-DATABASE_URL = "postgresql://postgres:root@localhost:3003/example"
+DATABASE_URL = "postgresql://user:password@postgres-db:5433/kicker_iq_model"
 XLSX_PATH = "./data/players.xlsx"
 
 def nan_to_none(value):
